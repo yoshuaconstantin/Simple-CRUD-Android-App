@@ -38,4 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
     }
+    public void goForgot(View view){
+        setContentView(R.layout.forgot_password);
+
+    }
 }
