@@ -30,6 +30,18 @@ public class SqliteHelper extends SQLiteOpenHelper {
     //COLUMN password
     public static final String KEY_PASSWORD = "password";
 
+    //COLUMN No telpon
+    public static final String KEY_TELP = "notelp";
+
+    //COLUMN RT
+    public static final String KEY_RT = "rt";
+
+    //COLUMN RW
+    public static final String KEY_RW = "rw";
+
+    //COLUMN NO Rumah
+    public static final String KEY_NORMH = "normh";
+
     //SQL for creating users table
     public static final String SQL_TABLE_USERS = " CREATE TABLE " + TABLE_USERS
             + " ( "
@@ -37,6 +49,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_USER_NAME + " TEXT, "
             + KEY_EMAIL + " TEXT, "
             + KEY_PASSWORD + " TEXT"
+            + KEY_TELP + " TEXT"
+            + KEY_RT + " TEXT"
+            + KEY_RW + " TEXT"
+            + KEY_NORMH + " TEXT"
             + " ) ";
 
 
@@ -74,6 +90,18 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
+
+        //Put Telpon in  @values
+        values.put(KEY_TELP , user.notelp);
+
+        //Put rt in  @values
+        values.put(KEY_RT , user.rt);
+
+        //Put rw in  @values
+        values.put(KEY_RW , user.rw);
+
+        //Put Nomor rumah in  @values
+        values.put(KEY_NORMH , user.normh);
 
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);

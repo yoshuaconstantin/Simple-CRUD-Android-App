@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
@@ -26,16 +27,19 @@
             android:paddingTop="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutUsername"
+                android:id="@+id/textInputLayoutEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username" >
+                android:layout_marginTop="16dp"
+                app:errorEnabled="true" >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/roundtext" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/roundtext" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,14 +47,17 @@
                 android:id="@+id/textInputLayoutPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password" >
+                android:text="Password"
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/roundtext"
-                android:layout_marginBottom="20dp"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/roundtext"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
@@ -80,7 +87,6 @@
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
                     android:background="#d67601"
-
                     android:text="Masuk"
                     android:textAllCaps="false"
                     android:textColor="#fff"
@@ -93,7 +99,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:background="#d67601"
+
                 android:text="Daftar Akun"
                 android:textAllCaps="false"
                 android:textColor="#fff"
