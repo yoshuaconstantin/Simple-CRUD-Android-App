@@ -6,37 +6,39 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.joshua.r0th.crud2.ui.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.joshua.r0th.crud2.ui.home.HomeFragment"
         android:label="@string/beranda"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_pantuan"
         android:name="com.joshua.r0th.crud2.ui.gallery.GalleryFragment"
         android:label="@string/pantauan"
         tools:layout="@layout/fragment_pantauan" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.joshua.r0th.crud2.ui.slideshow.SlideshowFragment"
-        android:label="@string/progress"
-        tools:layout="@layout/fragment_progress" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_riwayat"
         android:name="com.joshua.r0th.crud2.ui.tools.ToolsFragment"
         android:label="@string/riwayat"
         tools:layout="@layout/fragment_riwayat" />
 
     <fragment
-        android:id="@+id/nav_share"
+        android:id="@+id/nav_about"
         android:name="com.joshua.r0th.crud2.ui.share.ShareFragment"
         android:label="@string/Tentang"
         tools:layout="@layout/fragment_about" />
 
     <fragment
-        android:id="@+id/nav_send"
+        
+        android:id="@+id/nav_logout"
         android:name="com.joshua.r0th.crud2.ui.send.SendFragment"
         android:label="@string/Keluar"
         tools:layout="@layout/fragment_logout" />

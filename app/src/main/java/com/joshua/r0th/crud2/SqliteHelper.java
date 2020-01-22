@@ -91,17 +91,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //Put password in  @values
         values.put(KEY_PASSWORD, user.password);
 
-        //Put Telpon in  @values
-        values.put(KEY_TELP , user.notelp);
-
-        //Put rt in  @values
-        values.put(KEY_RT , user.rt);
-
-        //Put rw in  @values
-        values.put(KEY_RW , user.rw);
-
-        //Put Nomor rumah in  @values
-        values.put(KEY_NORMH , user.normh);
 
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);

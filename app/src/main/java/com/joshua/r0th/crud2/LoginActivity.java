@@ -18,10 +18,12 @@ import com.google.android.material.textfield.TextInputLayout;
 public class LoginActivity extends AppCompatActivity {
 
     //Declaration EditTexts
+    EditText editTextUserName;
     EditText editTextEmail;
     EditText editTextPassword;
 
     //Declaration TextInputLayout
+    TextInputLayout textInputLayoutUserName;
     TextInputLayout textInputLayoutEmail;
     TextInputLayout textInputLayoutPassword;
 
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
 
                     //Authenticate user
                      User currentUser = sqliteHelper.Authenticate(new User(null, null, Email, Password));

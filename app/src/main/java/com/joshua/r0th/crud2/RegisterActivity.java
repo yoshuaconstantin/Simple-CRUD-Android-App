@@ -20,10 +20,12 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
 
+
     //Declaration TextInputLayout
     TextInputLayout textInputLayoutUserName;
     TextInputLayout textInputLayoutEmail;
     TextInputLayout textInputLayoutPassword;
+
 
     //Declaration Button
     Button buttonRegister;
@@ -45,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String UserName = editTextUserName.getText().toString();
                     String Email = editTextEmail.getText().toString();
                     String Password = editTextPassword.getText().toString();
+
 
                     //Check in the database is there any user associated with  this email
                     if (!sqliteHelper.isEmailExists(Email)) {
