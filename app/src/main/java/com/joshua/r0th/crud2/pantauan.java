@@ -1,31 +1,22 @@
-package com.joshua.r0th.crud2.ui.gallery;
+package com.joshua.r0th.crud2;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentActivity;
 
-import com.joshua.r0th.crud2.R;
-import com.joshua.r0th.crud2.database1;
 
-public class GalleryFragment extends AppCompatActivity {
+public class pantauan extends FragmentActivity {
 
     database1 myDb;
 
-    EditText editNomorRumah,editJentikDalam,editJentikLuar,editTextId;
+    EditText editNomorRumah,editJentikDalam,editJentikLuar;
 
     Button btnAddData;
 
@@ -88,11 +79,11 @@ public class GalleryFragment extends AppCompatActivity {
 
                         if(isInserted == true)
 
-                            Toast.makeText(GalleryFragment.this,"Data Iserted",Toast.LENGTH_LONG).show();
+                            Toast.makeText(pantauan.this,"Data Iserted",Toast.LENGTH_LONG).show();
 
                         else
 
-                            Toast.makeText(GalleryFragment.this,"Data Not Iserted",Toast.LENGTH_LONG).show();
+                            Toast.makeText(pantauan.this,"Data Not Iserted",Toast.LENGTH_LONG).show();
 
                     }
 
