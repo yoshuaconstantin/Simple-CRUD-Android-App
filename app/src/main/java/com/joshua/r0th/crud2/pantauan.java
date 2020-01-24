@@ -52,7 +52,7 @@ public class pantauan extends AppCompatActivity {
 
         AddData();
 
-        viewAll();
+
 
 
 
@@ -97,58 +97,6 @@ public class pantauan extends AppCompatActivity {
 
 
     //fungsi menampilkan data
-
-    public void viewAll() {
-
-        btnViewAll.setOnClickListener(
-
-                new View.OnClickListener(){
-
-                    @Override
-
-                    public void onClick(View v) {
-
-                        Cursor res = myDb.getAllData();
-
-                        if(res.getCount() == 0) {
-
-                            // show message
-
-                            showMessage("Error","Noting Found");
-
-                            return;
-
-                        }
-
-
-
-                        StringBuffer buffer = new StringBuffer();
-
-                        while (res.moveToNext() ) {
-
-                            buffer.append("NomorRumah :"+ res.getString(0)+"\n");
-
-                            buffer.append("JentikDalam :"+ res.getString(1)+"\n");
-
-                            buffer.append("JentikLuar :"+ res.getString(2)+"\n");
-
-
-
-                        }
-
-
-
-                        // show all data
-
-                        showMessage("Data",buffer.toString());
-
-                    }
-
-                }
-
-        );
-
-    }
 
 
 

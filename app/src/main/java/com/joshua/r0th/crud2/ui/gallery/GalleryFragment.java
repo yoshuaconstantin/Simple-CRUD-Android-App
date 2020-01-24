@@ -12,99 +12,84 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.joshua.r0th.crud2.LoginActivity;
 import com.joshua.r0th.crud2.R;
 import com.joshua.r0th.crud2.database1;
 import com.joshua.r0th.crud2.pantauan;
 
 
-public class GalleryFragment extends FragmentActivity {
-
+public class GalleryFragment extends Fragment {
+    Button btnAddData;
+    Button btnViewAll;
     database1 myDb;
 
     EditText editNomorRumah,editJentikDalam,editJentikLuar;
-
-    Button btnAddData;
-
-    Button btnViewAll;
-
-
-
-
+    String contoh1;
+    String contoh2;
+    String contoh3;
 
     @Override
-
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.fragment_pantauan);
-
-        myDb = new database1(this);
-
-        editNomorRumah = (EditText)findViewById(R.id.nomorrmh);
-
-        editJentikDalam = (EditText)findViewById(R.id.jentikdirumah);
-
-        editJentikLuar = (EditText)findViewById(R.id.jentikdiluarrumah);
-
-
-        btnAddData = (Button)findViewById(R.id.tambahdata);
-
-        btnViewAll = (Button)findViewById(R.id.lihatdata);
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_pantauan, container, false);
+        btnAddData = rootView.findViewById(R.id.tambahdata);
+        btnViewAll = rootView.findViewById(R.id.lihatdata);
+        myDb = new database1(getActivity());
+        editNomorRumah = (EditText)rootView.findViewById(R.id.nomorrmh);
+        editJentikDalam = (EditText)rootView.findViewById(R.id.jentikdirumah);
+        editJentikLuar = (EditText)rootView.findViewById(R.id.jentikdiluarrumah);
+        contoh1 = editNomorRumah.getText().toString();
+        contoh2 = editJentikDalam.getText().toString();
+        contoh3 = editJentikLuar.getText().toString();
 
         AddData();
-
         viewAll();
-
-
-
+        return rootView;
     }
-
-
-
-    //fungsi tambah
+//fungsi tambah
 
     public void AddData() {
+            btnAddData.setOnClickListener(
 
-        btnAddData.setOnClickListener(
+                    new View.OnClickListener() {
 
-                new View.OnClickListener() {
+                        @Override
 
-                    @Override
+                        public void onClick(View v) {
+                            if (contoh1.matches("")) {
+                                Toast.makeText(getContext(), "Nomor Rumah Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
 
-                    public void onClick(View v) {
+                            }
+                            else {
+                                boolean isInserted = myDb.insertData(editNomorRumah.getText().toString(),
 
-                        boolean isInserted = myDb.insertData(editNomorRumah.getText().toString(),
+                                        editJentikDalam.getText().toString(),
 
-                                editJentikDalam.getText().toString(),
+                                        editJentikLuar.getText().toString());
 
-                                editJentikLuar.getText().toString() );
+                                if (isInserted == true)
 
-                        if(isInserted == true)
+                                    Toast.makeText(getContext(), "Data Iserted", Toast.LENGTH_LONG).show();
 
-                            Toast.makeText(GalleryFragment.this,"Data Iserted",Toast.LENGTH_LONG).show();
+                                else
 
-                        else
+                                    Toast.makeText(getContext(), "Data Not Iserted", Toast.LENGTH_LONG).show();
 
-                            Toast.makeText(GalleryFragment.this,"Data Not Iserted",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    });
+
 
                     }
 
-                }
-
-        );
-
-    }
 
 
-
-    //fungsi menampilkan data
 
     public void viewAll() {
 
@@ -157,14 +142,11 @@ public class GalleryFragment extends FragmentActivity {
         );
 
     }
-
-
-
     //membuat alert dialog
 
     public void showMessage(String title, String Message){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setCancelable(true);
 
@@ -175,4 +157,6 @@ public class GalleryFragment extends FragmentActivity {
         builder.show();
 
     }
+
+
 }

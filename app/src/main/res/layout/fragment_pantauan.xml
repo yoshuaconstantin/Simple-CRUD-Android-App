@@ -65,14 +65,12 @@
                android:layout_gravity="center">
 
             <Button
-
                 android:id="@+id/tambahdata"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="#d67601"
                 android:text="Tambah Data"
-                android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp" />
 

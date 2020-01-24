@@ -124,4 +124,24 @@ public class database1 extends SQLiteOpenHelper {
 
     }
 
+    public String getData() {
+        Cursor cursor = null;
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM data_jentik", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    empName.append(cursor.getString(cursor.getColumnIndex("NomorRumah")) + "\n");
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
+    }
 }
