@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_pantuan"
-        android:name="com.joshua.r0th.crud2.pantauan"
+        android:name="com.joshua.r0th.crud2.ui.gallery.GalleryFragment"
         android:label="@string/pantauan"
         tools:layout="@layout/fragment_pantauan" />
 

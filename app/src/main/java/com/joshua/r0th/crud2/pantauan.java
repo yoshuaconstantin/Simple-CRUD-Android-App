@@ -1,5 +1,6 @@
 package com.joshua.r0th.crud2;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 
-public class pantauan extends FragmentActivity {
+public class pantauan extends AppCompatActivity {
 
     database1 myDb;
 
@@ -166,7 +167,11 @@ public class pantauan extends FragmentActivity {
         builder.show();
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent goLog = new Intent(pantauan.this, MainActivity.class);
+        startActivity(goLog);
+    }
 }
 
 

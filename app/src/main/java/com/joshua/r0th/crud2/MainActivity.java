@@ -79,8 +79,14 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     //Untuk Memanggil profile user
     public void goProfile(View view) {
         setContentView(R.layout.fragment_profile);
+    }
+
+    public void goLogout(View view) {
+        Intent goLog = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(goLog);
     }
 }
