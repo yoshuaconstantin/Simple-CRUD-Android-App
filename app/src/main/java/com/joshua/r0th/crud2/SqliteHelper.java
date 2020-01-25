@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
@@ -59,12 +62,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
+    private String email;
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Create Table when oncreate gets called
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
-
+        
     }
 
     @Override
@@ -133,5 +136,30 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         //if email does not exist return false
         return false;
+    }
+    public String getData() {
+        Cursor cursor = null;
+
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM users WHERE email = ", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    empName.append(cursor.getString(cursor.getColumnIndex("username"))+" ");
+                    empName.append(cursor.getString(cursor.getColumnIndex("email"))+" ");
+                    empName.append(cursor.getString(cursor.getColumnIndex("password"))+" \n");
+
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
     }
 }

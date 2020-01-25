@@ -13,23 +13,26 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.joshua.r0th.crud2.R;
+import com.joshua.r0th.crud2.SqliteHelper;
+import com.joshua.r0th.crud2.database1;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel ProfileViewModel;
+    private TextView contohText;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel =
-                ViewModelProviders.of(this).get(ProfileViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView textView = root.findViewById(R.id.text_profile);
-        ProfileViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    SqliteHelper myDb;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        myDb = new SqliteHelper(getActivity());
+        contohText = (TextView) rootView.findViewById(R.id.profile1);
+
+        viewData();
+        return rootView;
+    }
+    private void viewData() {
+        contohText.setText(myDb.getData() != null ? myDb.getData() : "-");
+
     }
 }

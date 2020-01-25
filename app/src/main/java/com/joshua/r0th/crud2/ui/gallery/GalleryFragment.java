@@ -54,41 +54,36 @@ public class GalleryFragment extends Fragment {
 //fungsi tambah
 
     public void AddData() {
-            btnAddData.setOnClickListener(
 
-                    new View.OnClickListener() {
+        btnAddData.setOnClickListener(
 
-                        @Override
+                new View.OnClickListener() {
 
-                        public void onClick(View v) {
-                            if (contoh1.matches("")) {
-                                Toast.makeText(getContext(), "Nomor Rumah Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
+                    @Override
 
-                            }
-                            else {
-                                boolean isInserted = myDb.insertData(editNomorRumah.getText().toString(),
+                    public void onClick(View v) {
 
-                                        editJentikDalam.getText().toString(),
+                        boolean isInserted = myDb.insertData(editNomorRumah.getText().toString(),
 
-                                        editJentikLuar.getText().toString());
+                                editJentikDalam.getText().toString(),
 
-                                if (isInserted == true)
+                                editJentikLuar.getText().toString() );
 
-                                    Toast.makeText(getContext(), "Data Iserted", Toast.LENGTH_LONG).show();
+                        if(isInserted == true)
 
-                                else
+                            Toast.makeText(getContext(),"Data Iserted",Toast.LENGTH_LONG).show();
 
-                                    Toast.makeText(getContext(), "Data Not Iserted", Toast.LENGTH_LONG).show();
+                        else
 
-                            }
-
-                        }
-                    });
-
+                            Toast.makeText(getContext(),"Data Not Iserted",Toast.LENGTH_LONG).show();
 
                     }
 
+                }
 
+        );
+
+    }
 
 
     public void viewAll() {

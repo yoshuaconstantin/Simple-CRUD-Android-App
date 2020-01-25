@@ -124,15 +124,61 @@ public class database1 extends SQLiteOpenHelper {
 
     }
 
-    public String getData() {
+    public String getData1() {
         Cursor cursor = null;
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM data_jentik", null);
+            cursor = db.rawQuery("SELECT NomorRumah FROM data_jentik", null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
+
                     empName.append(cursor.getString(cursor.getColumnIndex("NomorRumah")) + "\n");
+
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
+    }
+    public String getData2() {
+        Cursor cursor = null;
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT JentikDalam FROM data_jentik", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    empName.append(cursor.getString(cursor.getColumnIndex("JentikDalam")) + "\n");
+
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
+    }
+    public String getData3() {
+        Cursor cursor = null;
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT JentikLuar FROM data_jentik", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+
+                    empName.append(cursor.getString(cursor.getColumnIndex("JentikLuar")) + "\n");
                 }
             }
             return empName.toString();
