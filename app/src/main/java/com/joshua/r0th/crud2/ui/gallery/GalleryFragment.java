@@ -1,7 +1,5 @@
 package com.joshua.r0th.crud2.ui.gallery;
 
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,15 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.joshua.r0th.crud2.LoginActivity;
 import com.joshua.r0th.crud2.R;
 import com.joshua.r0th.crud2.database1;
-import com.joshua.r0th.crud2.pantauan;
 
 
 public class GalleryFragment extends Fragment {
@@ -114,11 +107,11 @@ public class GalleryFragment extends Fragment {
 
                         while (res.moveToNext() ) {
 
-                            buffer.append("NomorRumah :"+ res.getString(0)+"\n");
+                            buffer.append("NomorRumah :"+ res.getString(1)+"\n");
 
-                            buffer.append("JentikDalam :"+ res.getString(1)+"\n");
+                            buffer.append("JentikDalam :"+ res.getString(2)+"\n");
 
-                            buffer.append("JentikLuar :"+ res.getString(2)+"\n");
+                            buffer.append("JentikLuar :"+ res.getString(3)+"\n");
 
 
 

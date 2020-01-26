@@ -6,66 +6,38 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class database1 extends SQLiteOpenHelper {
+    public SQLiteDatabase sqLiteDatabase;
 
-    //nama database
+    private static final int VERSION = 1;
+    public static final String DBNAME = "JENTIK.db";
+    public static final String TABLENAME = "data_jentik";
 
-    public static final String DATABASE_NAME = "JENTIK.db";
-
-    //nama table
-
-    public static final String TABLE_NAME = "data_jentik";
-
-    //versi database
-
-    private static final int DATABASE_VERSION = 1;
-
-    //table field
-
-    public static final String COL_1 = "NomorRumah";
-
-    public static final String COL_2 = "JentikDalam";
-
-    public static final String COL_3 = "JentikLuar";
-
-
-
+    public static String colID = "id";
+    public static String COL_1 = "NomorRumah";
+    public static String COL_2 = "JentikDalam";
+    public static String COL_3 = "JentikLuar";
 
     public database1(Context context) {
-
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        super(context, DBNAME, null, VERSION);
     }
 
-
-
     @Override
-
     public void onCreate(SQLiteDatabase db) {
-
-        db.execSQL("create table data_jentik (NomorRumah integer null ," +
-
-                "JentikDalam integer null," +
-
-                "JentikLuar integer null);");
-
+        String createTable = "CREATE TABLE " + TABLENAME + " (" +
+                colID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_1 + " TEXT," + COL_2 + "  TEXT," +
+                COL_3 + " TEXT)";
+        db.execSQL(createTable);
     }
-
-
 
     @Override
-
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLENAME);
         onCreate(db);
-
     }
-
-
 
     //metode untuk tambah data
 
@@ -75,17 +47,16 @@ public class database1 extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(COL_1,NomorRumah);
+        contentValues.put(COL_1, NomorRumah);
 
-        contentValues.put(COL_2,JentikDalam);
+        contentValues.put(COL_2, JentikDalam);
 
-        contentValues.put(COL_3,JentikLuar);
+        contentValues.put(COL_3, JentikLuar);
 
 
+        long result = db.insert(TABLENAME, null, contentValues);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        if(result == -1)
+        if (result == -1)
 
             return false;
 
@@ -94,8 +65,6 @@ public class database1 extends SQLiteOpenHelper {
             return true;
 
     }
-
-
 
     //metode untuk mengambil data
 
@@ -109,85 +78,52 @@ public class database1 extends SQLiteOpenHelper {
 
     }
 
-
-
-
-
-
-    //metode untuk menghapus data
-
-    public int deleteData (String id) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        return db.delete(TABLE_NAME, "NoRumah = ?", new String[] {id});
-
+    public void updateData(int id, String NomorRumah, String JentikDalam, String JentikLuar) {
+        String updateData = "UPDATE " + TABLENAME + " SET " + COL_1 + "= '" + NomorRumah + "', " + COL_2 + "= '" + JentikDalam + "'," + COL_3 + "='" + JentikLuar + "' WHERE " + colID + " =" + id;
+        this.getWritableDatabase().execSQL(updateData);
     }
 
-    public String getData1() {
-        Cursor cursor = null;
-        StringBuilder empName = new StringBuilder();
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT NomorRumah FROM data_jentik", null);
-            if (cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
+    public void deleteData(int id) {
+        String deleteData = "DELETE FROM " + TABLENAME + " WHERE id=" + id;
+        this.getWritableDatabase().execSQL(deleteData);
+    }
 
-                    empName.append(cursor.getString(cursor.getColumnIndex("NomorRumah")) + "\n");
-
-                }
-            }
-            return empName.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (cursor != null) cursor.close();
+    public datamodel getData(int id) {
+        datamodel model = null;
+        String selectData = "SELECT * FROM " + TABLENAME + " WHERE id=" + String.valueOf(id);
+        Cursor data = this.getWritableDatabase().rawQuery(selectData, null);
+        if (data.moveToFirst()) {
+            model = new datamodel(Integer.parseInt(data.getString(data.getColumnIndex(colID))),
+                    data.getString(data.getColumnIndex(COL_1)), data.getString(data.getColumnIndex(COL_2)), data.getString(data.getColumnIndex(COL_3)));
         }
-
-        return null;
+        return model;
     }
-    public String getData2() {
-        Cursor cursor = null;
-        StringBuilder empName = new StringBuilder();
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT JentikDalam FROM data_jentik", null);
-            if (cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
 
-                    empName.append(cursor.getString(cursor.getColumnIndex("JentikDalam")) + "\n");
-
-                }
-            }
-            return empName.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (cursor != null) cursor.close();
+    public List<datamodel> getAll() {
+        List<datamodel> model = new ArrayList<>();
+        String selectData = "SELECT * FROM " + TABLENAME;
+        Cursor data = this.getWritableDatabase().rawQuery(selectData, null);
+        if (data.moveToPosition(1)) {
+            do {
+                model.add(new datamodel(Integer.parseInt(data.getString(data.getColumnIndex(colID))),
+                        data.getString(data.getColumnIndex(COL_1)), data.getString(data.getColumnIndex(COL_2)), data.getString(data.getColumnIndex(COL_3))));
+            } while (data.moveToNext());
         }
-
-        return null;
+        return model;
     }
-    public String getData3() {
-        Cursor cursor = null;
-        StringBuilder empName = new StringBuilder();
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT JentikLuar FROM data_jentik", null);
-            if (cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
 
+    public Cursor queueAll() {
+        String[] columns = new String[]{colID,COL_1, COL_2, COL_3};
+        Cursor cursor = sqLiteDatabase.query(TABLENAME, columns,
+                null, null, null, null, null);
 
-                    empName.append(cursor.getString(cursor.getColumnIndex("JentikLuar")) + "\n");
-                }
-            }
-            return empName.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (cursor != null) cursor.close();
-        }
-
-        return null;
+        return cursor;
     }
+
+
+public Cursor getlistall(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor data  = db.rawQuery("SELECT * FROM " + TABLENAME,null);
+        return  data;
+}
 }
