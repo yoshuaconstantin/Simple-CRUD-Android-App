@@ -38,15 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
 
-        });
 
         //Untuk men set navigasi drawer yang ada di sebelah kiri dan list yaang di bawa ex nav_profile
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -88,5 +80,19 @@ public class MainActivity extends AppCompatActivity {
     public void goLogout(View view) {
         Intent goLog = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(goLog);
+    }
+    public void hide(View view){
+        TextView textView = findViewById(R.id.pswrdd);
+
+        //Toggle
+        if (textView.getVisibility() == View.INVISIBLE)
+            textView.setVisibility(View.VISIBLE);
+        else if (textView.getVisibility() == View.VISIBLE)
+            textView.setVisibility(View.INVISIBLE);
+        else
+            textView.setVisibility(View.VISIBLE);
+
+        //If you want it only one time
+        //txtView.setVisibility(View.VISIBLE);
     }
 }

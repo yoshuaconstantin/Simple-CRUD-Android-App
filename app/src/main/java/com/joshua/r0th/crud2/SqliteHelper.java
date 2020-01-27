@@ -143,13 +143,60 @@ public class SqliteHelper extends SQLiteOpenHelper {
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM users WHERE email = ", null);
+            cursor = db.rawQuery("SELECT * FROM users ", null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
                     empName.append(cursor.getString(cursor.getColumnIndex("username"))+" ");
+
+
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
+    }
+    public String getData1() {
+        Cursor cursor = null;
+
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM users ", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
                     empName.append(cursor.getString(cursor.getColumnIndex("email"))+" ");
-                    empName.append(cursor.getString(cursor.getColumnIndex("password"))+" \n");
+
+
+                }
+            }
+            return empName.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return null;
+    }
+    public String getData2() {
+        Cursor cursor = null;
+
+        StringBuilder empName = new StringBuilder();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM users ", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    empName.append(cursor.getString(cursor.getColumnIndex("password"))+" ");
+
 
                 }
             }

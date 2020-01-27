@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.joshua.r0th.crud2.SqliteHelper.KEY_ID;
+
 public class database1 extends SQLiteOpenHelper {
     public SQLiteDatabase sqLiteDatabase;
 
@@ -126,4 +128,64 @@ public Cursor getlistall(){
         Cursor data  = db.rawQuery("SELECT * FROM " + TABLENAME,null);
         return  data;
 }
+
+    // Getting All Countries
+    public List ListAllData() {
+        List listdata = new ArrayList();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLENAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                adapterdata adapter1 = new adapterdata();
+                adapter1.setNomorRumah(cursor.getString(1));
+                adapter1.setJentikDalam(cursor.getString(2));
+                adapter1.setJentikLuar(cursor.getString(3));
+                // Adding country to list
+                listdata.add(adapter1);
+            } while (cursor.moveToNext());
+        }
+
+        // return country list
+        return listdata;
+    }
+
+    // Deleting single country
+    public void deleteCountry(adapterdata adapter1) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLENAME, KEY_ID + " = ?",
+                new String[] { String.valueOf(adapter1.getNomorRumah()) });
+        db.close();
+    }
+
+    // Updating single country
+    public int updateData1(adapterdata adapter) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_1, adapter.getNomorRumah());
+        values.put(COL_2, adapter.getJentikDalam());
+        values.put(COL_3, adapter.getJentikLuar());
+
+        // updating row
+        return db.update(TABLENAME, values, COL_1 + " = ?",
+                new String[] { String.valueOf(adapter.getNomorRumah()) });
+    }
+
+    // Adding new country
+    void addCountry(adapterdata country) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_1, country.getNomorRumah()); // Country Name
+        values.put(COL_2, country.getJentikDalam()); // Country Population
+        values.put(COL_3, country.getJentikLuar()); // Country Population
+        // Inserting Row
+        db.insert(TABLENAME, null, values);
+        db.close(); // Closing database connection
+    }
 }
