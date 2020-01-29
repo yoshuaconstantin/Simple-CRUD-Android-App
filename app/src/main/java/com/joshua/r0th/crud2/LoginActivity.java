@@ -21,8 +21,10 @@ public class LoginActivity extends AppCompatActivity {
 
     //Declaration EditTexts
     EditText editTextUserName;
-    public EditText editTextEmail;
+    EditText editTextEmail;
     EditText editTextPassword;
+    String Email;
+    String Password;
 
     //Declaration TextInputLayout
     TextInputLayout textInputLayoutUserName;
@@ -44,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         initCreateAccountTextView();
         initViews();
         editTextEmail = findViewById(R.id.editTextEmail);
+        Email = editTextEmail.getText().toString();
+
         //set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +55,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Check user input is correct or not
                 if (validate()) {
-                    String Email = editTextEmail.getText().toString();
+                    Email = editTextEmail.getText().toString();
                     //Get values from EditText fields
 
-                    String Password = editTextPassword.getText().toString();
+                    Password = editTextPassword.getText().toString();
 
 
 
@@ -87,13 +91,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public String datausername(){
-        String Email2 = editTextEmail.getText().toString();
+        Email = editTextEmail.getText().toString();
         Bundle b = new Bundle();
-        b.putString("userInput", Email2);
+        b.putString("userInput", Email);
         Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
         startActivity(i);
 
-        return Email2;
+        return Email;
     }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)
