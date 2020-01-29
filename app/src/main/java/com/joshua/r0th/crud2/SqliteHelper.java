@@ -56,13 +56,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY, "
             + KEY_USER_NAME + " TEXT, "
             + KEY_EMAIL + " TEXT, "
-            + KEY_PASSWORD + " TEXT"
-            + KEY_TELP + " TEXT"
-            + KEY_RT + " TEXT"
-            + KEY_RW + " TEXT"
+            + KEY_PASSWORD + " TEXT,"
+            + KEY_TELP + " TEXT,"
+            + KEY_RT + " TEXT,"
+            + KEY_RW + " TEXT,"
             + KEY_NORMH + " TEXT"
             + " ) ";
-
 
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -142,13 +141,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
         //if email does not exist return false
         return false;
     }
-    public String getData() {
+    public String getData(String emailnya) {
         Cursor cursor = null;
-
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM users ", null);
+            cursor = db.rawQuery("SELECT * FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
@@ -177,8 +175,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
         StringBuilder empName = new StringBuilder();
         try {
             String move;
-          Bundle b = new Bundle();
-          move = b.getString("UserInput");
+            Bundle b = new Bundle();
+            move = b.getString("UserInput");
 
             SQLiteDatabase db = this.getWritableDatabase();
 
