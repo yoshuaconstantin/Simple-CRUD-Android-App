@@ -24,8 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextUserName;
     EditText editTextEmail;
     EditText editTextPassword;
-    String Email;
-    String Password;
 
     //Declaration TextInputLayout
     TextInputLayout textInputLayoutUserName;
@@ -70,9 +68,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (currentUser != null) {
 
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
+                        //username
                         SharedPreferences.Editor editor = getSharedPreferences("crud", MODE_PRIVATE).edit();
                         editor.putString("email", Email);
                         editor.apply();
+                        //
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         Bundle b = new Bundle();
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
         startActivity(i);
 
-        return Email2;
+        return Email;
 
     }
     //this method used to set Create account TextView text and click event( maltipal colors

@@ -146,7 +146,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM users where email=?", new String[] {emailnya});
+            cursor = db.rawQuery("SELECT username FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
@@ -166,7 +166,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
 
-    public String getData1() {
+    public String getData1(String emailnya) {
 
         Cursor cursor = null;
 
@@ -180,7 +180,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
             SQLiteDatabase db = this.getWritableDatabase();
 
-            cursor = db.rawQuery("SELECT username FROM " + TABLE_USERS +" WHERE email =" + move.trim(), null);
+            cursor = db.rawQuery("SELECT email FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
@@ -198,13 +198,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         return null;
     }
-    public String getData2() {
+    public String getData2(String emailnya) {
         Cursor cursor = null;
 
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM users ", null);
+            cursor = db.rawQuery("SELECT password FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 

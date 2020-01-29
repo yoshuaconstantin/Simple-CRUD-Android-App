@@ -1,7 +1,9 @@
 package com.joshua.r0th.crud2.ui.send;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.joshua.r0th.crud2.R;
 
 public class SendFragment extends Fragment {
 
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class SendFragment extends Fragment {
 
 
     private void showDialog(){
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 
         // set title dialog
