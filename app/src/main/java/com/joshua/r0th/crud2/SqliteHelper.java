@@ -2,23 +2,28 @@ package com.joshua.r0th.crud2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.os.StatFs;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
+
     //DATABASE NAME
     public static final String DATABASE_NAME = "loopwiki.com";
 
     //DATABASE VERSION
     public static final int DATABASE_VERSION = 1;
+    public static String data1="";
 
-    //TABLE NAME
     public static final String TABLE_USERS = "users";
+    public static final String DATAPASS = data1 ;
 
     //TABLE USERS COLUMNS
     //ID COLUMN @primaryKey
@@ -62,7 +67,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    private String email;
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Create Table when oncreate gets called
@@ -161,13 +166,23 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         return null;
     }
+
+
     public String getData1() {
+
         Cursor cursor = null;
+
+
 
         StringBuilder empName = new StringBuilder();
         try {
+            String move;
+          Bundle b = new Bundle();
+          move = b.getString("UserInput");
+
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM users ", null);
+
+            cursor = db.rawQuery("SELECT username FROM " + TABLE_USERS +" WHERE email =" + move.trim(), null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 

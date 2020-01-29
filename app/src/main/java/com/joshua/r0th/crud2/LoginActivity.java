@@ -1,7 +1,9 @@
 package com.joshua.r0th.crud2;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -19,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //Declaration EditTexts
     EditText editTextUserName;
-    EditText editTextEmail;
+    public EditText editTextEmail;
     EditText editTextPassword;
 
     //Declaration TextInputLayout
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     //Declaration SqliteHelper
     SqliteHelper sqliteHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         sqliteHelper = new SqliteHelper(this);
         initCreateAccountTextView();
         initViews();
-
+        editTextEmail = findViewById(R.id.editTextEmail);
         //set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +51,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Check user input is correct or not
                 if (validate()) {
-
-                    //Get values from EditText fields
                     String Email = editTextEmail.getText().toString();
+                    //Get values from EditText fields
+
                     String Password = editTextPassword.getText().toString();
+
+
 
 
                     //Authenticate user
@@ -59,10 +64,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     //Check Authentication is successful or not
                     if (currentUser != null) {
+
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
 
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+
+                        datausername();
                         startActivity(intent);
                         finish();
 
@@ -78,7 +86,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+    public String datausername(){
+        String Email2 = editTextEmail.getText().toString();
+        Bundle b = new Bundle();
+        b.putString("userInput", Email2);
+        Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
+        startActivity(i);
 
+        return Email2;
+    }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)
     private void initCreateAccountTextView() {

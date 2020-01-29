@@ -40,6 +40,5 @@
         
         android:id="@+id/nav_logout"
         android:name="com.joshua.r0th.crud2.ui.send.SendFragment"
-        android:label="@string/Keluar"
-        tools:layout="@layout/fragment_logout" />
+        android:label="@string/Keluar"/>
 </navigation>
