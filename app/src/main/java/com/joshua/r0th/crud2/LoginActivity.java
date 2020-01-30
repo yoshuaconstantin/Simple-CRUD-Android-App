@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         initCreateAccountTextView();
         initViews();
         editTextEmail = findViewById(R.id.editTextEmail);
+        Email = editTextEmail.getText().toString();
+
         //set click event of login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Get values from EditText fields
 
                     Password = editTextPassword.getText().toString();
+
                     //Authenticate user
                     User currentUser = sqliteHelper.Authenticate(new User(null, null, Email, Password));
 
@@ -64,9 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (currentUser != null) {
 
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-                        SharedPreferences.Editor editor = getSharedPreferences("crud", MODE_PRIVATE).edit();
-                        editor.putString("email", Email);
-                        editor.apply();
+
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         Bundle b = new Bundle();
@@ -88,12 +89,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public String datausername(){
-        String Email2 = editTextEmail.getText().toString();
+        Email = editTextEmail.getText().toString();
         Bundle b = new Bundle();
-        b.putString("userInput", Email2);
+        b.putString("userInput", Email);
         Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
         startActivity(i);
-        return Email2;
+
     }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)

@@ -42,8 +42,7 @@ public class ProfileFragment extends Fragment {
     }
     private void viewData() {
         contohText.setText(myDb.getData(emmail) != null ? myDb.getData(emmail) : "-");
-        contohText1.setText(myDb.getData1() != null ? myDb.getData1() : "-");
-        contohText2.setText(myDb.getData2() != null ? myDb.getData2() : "-");
+
     }
 
 

@@ -3,9 +3,15 @@ package com.joshua.r0th.crud2;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +23,16 @@ public class database1 extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     public static final String DBNAME = "JENTIK.db";
     public static final String TABLENAME = "data_jentik";
-
+    private static String db_path = "";
     public static String colID = "id";
     public static String COL_1 = "NomorRumah";
     public static String COL_2 = "JentikDalam";
     public static String COL_3 = "JentikLuar";
+    private final Context mycontext;
 
     public database1(Context context) {
         super(context, DBNAME, null, VERSION);
+        this.mycontext = context;
     }
 
     @Override
@@ -115,7 +123,7 @@ public class database1 extends SQLiteOpenHelper {
     }
 
     public Cursor queueAll() {
-        String[] columns = new String[]{colID,COL_1, COL_2, COL_3};
+        String[] columns = new String[]{colID, COL_1, COL_2, COL_3};
         Cursor cursor = sqLiteDatabase.query(TABLENAME, columns,
                 null, null, null, null, null);
 
@@ -123,11 +131,11 @@ public class database1 extends SQLiteOpenHelper {
     }
 
 
-public Cursor getlistall(){
+    public Cursor getlistall() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor data  = db.rawQuery("SELECT * FROM " + TABLENAME,null);
-        return  data;
-}
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLENAME, null);
+        return data;
+    }
 
     // Getting All Countries
     public List ListAllData() {
@@ -158,7 +166,7 @@ public Cursor getlistall(){
     public void deleteCountry(adapterdata adapter1) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLENAME, KEY_ID + " = ?",
-                new String[] { String.valueOf(adapter1.getNomorRumah()) });
+                new String[]{String.valueOf(adapter1.getNomorRumah())});
         db.close();
     }
 
@@ -173,7 +181,7 @@ public Cursor getlistall(){
 
         // updating row
         return db.update(TABLENAME, values, COL_1 + " = ?",
-                new String[] { String.valueOf(adapter.getNomorRumah()) });
+                new String[]{String.valueOf(adapter.getNomorRumah())});
     }
 
     // Adding new country
@@ -187,5 +195,58 @@ public Cursor getlistall(){
         // Inserting Row
         db.insert(TABLENAME, null, values);
         db.close(); // Closing database connection
+    }
+
+    public Cursor QueryData(String query) {
+        return sqLiteDatabase.rawQuery(query, null);
+
+    }
+
+    public void cekdatabasecopas() {
+        boolean dbexist = cekdatabase();
+        if (dbexist) {
+            Log.d("TAG", "database already Exist");
+        } else {
+            this.getReadableDatabase();
+
+        }
+    }
+
+    public void copyDatabase() throws IOException {
+        InputStream myinput = mycontext.getAssets().open(DBNAME);
+        String outfilename = db_path + DBNAME;
+        OutputStream myoutput = new FileOutputStream(outfilename);
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = myinput.read(buffer)) > 0) {
+            myoutput.write(buffer, 0, length);
+
+        }
+        myoutput.flush();
+        myoutput.close();
+        myinput.close();
+    }
+
+    public boolean cekdatabase() {
+        SQLiteDatabase checkdb = null;
+        try {
+            String mypath = db_path + DBNAME;
+            checkdb = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (checkdb != null) {
+                checkdb.close();
+            }
+            return checkdb != null ? true : false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public void opendatabase(){
+        String mypath = db_path+DBNAME;
+        sqLiteDatabase=SQLiteDatabase.openDatabase(mypath,null,SQLiteDatabase.OPEN_READWRITE);
     }
 }

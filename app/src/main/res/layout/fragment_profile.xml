@@ -194,8 +194,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="#1b193b"
-                android:onClick="hide"
-                android:visibility="invisible"
                 android:textColor="#181737"
                 android:maxLength="12"
                 android:background="#0000"
