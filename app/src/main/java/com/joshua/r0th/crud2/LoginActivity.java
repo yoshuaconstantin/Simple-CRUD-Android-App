@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     Password = editTextPassword.getText().toString();
 
-
                     //Authenticate user
                     User currentUser = sqliteHelper.Authenticate(new User(null, null, Email, Password));
 
@@ -68,11 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (currentUser != null) {
 
                         Snackbar.make(buttonLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
-                        //username
-                        SharedPreferences.Editor editor = getSharedPreferences("crud", MODE_PRIVATE).edit();
-                        editor.putString("email", Email);
-                        editor.apply();
-                        //
+
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         Bundle b = new Bundle();
@@ -99,8 +94,6 @@ public class LoginActivity extends AppCompatActivity {
         b.putString("userInput", Email);
         Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
         startActivity(i);
-
-        return Email;
 
     }
     //this method used to set Create account TextView text and click event( maltipal colors

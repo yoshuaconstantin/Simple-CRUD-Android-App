@@ -142,7 +142,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            cursor = db.rawQuery("SELECT username FROM users where email=?", new String[] {emailnya});
+
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
