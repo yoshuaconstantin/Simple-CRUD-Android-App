@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.joshua.r0th.crud2.SqliteHelper.KEY_ID;
+
 
 public class database1 extends SQLiteOpenHelper {
     public SQLiteDatabase sqLiteDatabase;
@@ -163,12 +163,7 @@ public class database1 extends SQLiteOpenHelper {
     }
 
     // Deleting single country
-    public void deleteCountry(adapterdata adapter1) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLENAME, KEY_ID + " = ?",
-                new String[]{String.valueOf(adapter1.getNomorRumah())});
-        db.close();
-    }
+
 
     // Updating single country
     public int updateData1(adapterdata adapter) {

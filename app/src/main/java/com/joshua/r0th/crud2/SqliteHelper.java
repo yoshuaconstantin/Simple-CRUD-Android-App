@@ -2,15 +2,10 @@ package com.joshua.r0th.crud2;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.os.StatFs;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
@@ -20,10 +15,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     //DATABASE VERSION
     public static final int DATABASE_VERSION = 1;
-    public static String data1="";
+
 
     public static final String TABLE_USERS = "users";
-    public static final String DATAPASS = data1 ;
+
 
     //TABLE USERS COLUMNS
     //ID COLUMN @primaryKey
@@ -63,9 +58,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
             + KEY_NORMH + " TEXT"
             + " ) ";
 
-    public SqliteHelper(Context context) {
+    public  SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {

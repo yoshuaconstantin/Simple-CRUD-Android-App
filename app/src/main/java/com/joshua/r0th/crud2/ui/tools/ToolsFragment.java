@@ -29,51 +29,34 @@ public class ToolsFragment extends Fragment {
 
     TextView norumah, jentikdalam, jentikluar;
 
-    private RecyclerView recyclerView;
-    private ArrayList<adapterdata> items=new ArrayList<adapterdata>();
-    private database1 database;
-    public adapterdata adapter1;
-    private vieholderadapter adapter2;
-    private Cursor cursor;
+
+    private database1 SQLAdapter;
+
+    database1 myDb;
+    SimpleCursorAdapter cursorAdapter;
+    Cursor cursor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView =(ViewGroup) inflater.inflate(R.layout.fragment_riwayat, container, false);
-        recyclerView=rootView.findViewById(R.id.recycleView);
-        loadDatabase();
-        return rootView;
-    }
-    public void loadDatabase(){
-        database = new database1(getActivity());
-        try {
-            database.cekdatabasecopas();
-            database.opendatabase();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            cursor = database.QueryData("select * from data_jentik");
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    do {
-                        adapterdata item = new adapterdata();
-                        item.setNomorRumah(cursor.getString(1));
-                        item.setJentikDalam(cursor.getString(2));
-                        item.setJentikLuar(cursor.getString(3));
-                        items.add(item);
-                    } while (cursor.moveToNext());
+        View rootView = inflater.inflate(R.layout.fragment_riwayat, container, false);
+        ListView listView = (ListView) rootView.findViewById(R.id.listview1);
+        myDb = new database1(getContext());
 
-                }
+        ArrayList<String> thelist = new ArrayList<>();
+        Cursor data = myDb.getlistall();
+
+
+        if (data.getCount() == 0) {
+            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_LONG).show();
+        } else {
+            while (data.moveToNext()) {
+                thelist.add(data.getString(1));
+                ListAdapter listAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, thelist);
+                listView.setAdapter(listAdapter);
 
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
         }
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-        adapter2= new vieholderadapter(getActivity(),items);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter2);
+        return rootView;
     }
 }
