@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         b.putString("userInput", Email);
         Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
         startActivity(i);
-
+    return null;
     }
     //this method used to set Create account TextView text and click event( maltipal colors
     // for TextView yet not supported in Xml so i have done it programmatically)

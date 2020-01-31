@@ -38,6 +38,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.joshua.r0th.crud2.SqliteHelper"
             android:label="@string/app_name"/>
+        <activity android:name=".lihatRiwayat"
+            android:label="@string/app_name"/>
     </application>
 
 </manifest>
