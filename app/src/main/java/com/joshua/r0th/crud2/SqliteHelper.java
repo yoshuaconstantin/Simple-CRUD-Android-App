@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqliteHelper extends SQLiteOpenHelper {
-
+    private static final String TAG = SqliteHelper.class.getSimpleName();
 
     //DATABASE NAME
     public static final String DATABASE_NAME = "loopwiki.com";
@@ -163,10 +167,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
 
     public String getData1(String emailnya) {
-
         Cursor cursor = null;
-
-
 
         StringBuilder empName = new StringBuilder();
         try {
@@ -194,6 +195,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         return null;
     }
+
     public String getData2(String emailnya) {
         Cursor cursor = null;
 
@@ -203,10 +205,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery("SELECT password FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-
                     empName.append(cursor.getString(cursor.getColumnIndex("password"))+" ");
-
-
                 }
             }
             return empName.toString();
@@ -215,7 +214,39 @@ public class SqliteHelper extends SQLiteOpenHelper {
         } finally {
             if (cursor != null) cursor.close();
         }
-
         return null;
+    }
+
+    public List<adapterdata> getAllData(){
+        Cursor cursor = null;
+        ArrayList<adapterdata> listData = new ArrayList<>();
+
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM users", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    adapterdata data = new adapterdata();
+
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(0)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(1)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(2)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(3)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(4)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(5)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(6)));
+
+                    //data.setNomorRumah(cursor.getString(cursor.getColumnIndex("name")));
+
+                    listData.add(data);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return listData;
     }
 }

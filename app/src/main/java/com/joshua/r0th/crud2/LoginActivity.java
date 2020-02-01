@@ -1,9 +1,7 @@
 package com.joshua.r0th.crud2;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -92,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         Email = editTextEmail.getText().toString();
         Bundle b = new Bundle();
         b.putString("userInput", Email);
-        Intent i = new Intent(getApplicationContext(), SqliteHelper.class);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     return null;
     }
