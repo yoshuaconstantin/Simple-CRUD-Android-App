@@ -146,7 +146,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         StringBuilder empName = new StringBuilder();
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-
+            cursor = db.rawQuery("SELECT username FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
@@ -167,6 +167,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
 
     public String getData1(String emailnya) {
+
         Cursor cursor = null;
 
         StringBuilder empName = new StringBuilder();
@@ -176,23 +177,18 @@ public class SqliteHelper extends SQLiteOpenHelper {
             move = b.getString("UserInput");
 
             SQLiteDatabase db = this.getWritableDatabase();
-
             cursor = db.rawQuery("SELECT email FROM users where email=?", new String[] {emailnya});
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-
                     empName.append(cursor.getString(cursor.getColumnIndex("email"))+" ");
-
-
                 }
-            }
+                }
             return empName.toString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (cursor != null) cursor.close();
         }
-
         return null;
     }
 

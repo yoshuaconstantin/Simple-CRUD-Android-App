@@ -2,6 +2,7 @@ package com.joshua.r0th.crud2;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -73,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                         datausername();
                         startActivity(intent);
                         finish();
+                        //untuk menyimpan data email agar bisa di panggil di profile activity
+                        SharedPreferences.Editor editor = getSharedPreferences("crud", MODE_PRIVATE).edit();
+                        editor.putString("email", Email);
+                        editor.apply();
+                        //end
 
                     } else {
 
