@@ -10,14 +10,14 @@ public class Repository {
     private static Context mContext;
     private static Repository instance;
     private List<adapterdata> data;
-    private static SqliteHelper sqliteHelper;
+    private static database1 sqliteHelper;
 
     public static Repository getInstance(Context context){
         if(instance == null) {
             synchronized (SqliteHelper.class) {
                 mContext = context;
                 instance = new Repository();
-                sqliteHelper = new SqliteHelper(mContext);
+                sqliteHelper = new database1(mContext);
             }
         }
         return instance;
@@ -25,7 +25,7 @@ public class Repository {
 
     public MutableLiveData<List<adapterdata>> getListData(){
         MutableLiveData<List<adapterdata>> data = new MutableLiveData<>();
-        data.setValue(sqliteHelper.getAllData());
+        data.setValue(sqliteHelper.getAllData1());
         return data;
     }
 }

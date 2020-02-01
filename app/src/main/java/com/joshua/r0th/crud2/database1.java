@@ -18,6 +18,7 @@ import java.util.List;
 
 
 public class database1 extends SQLiteOpenHelper {
+    private static final String TAG = SqliteHelper.class.getSimpleName();
     public SQLiteDatabase sqLiteDatabase;
 
     private static final int VERSION = 1;
@@ -243,5 +244,32 @@ public class database1 extends SQLiteOpenHelper {
     public void opendatabase(){
         String mypath = db_path+DBNAME;
         sqLiteDatabase=SQLiteDatabase.openDatabase(mypath,null,SQLiteDatabase.OPEN_READWRITE);
+    }
+    public List<adapterdata> getAllData1(){
+        Cursor cursor = null;
+        ArrayList<adapterdata> listData = new ArrayList<>();
+
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            cursor = db.rawQuery("SELECT * FROM data_jentik", null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    adapterdata data = new adapterdata();
+
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(0)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(1)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(2)));
+                    Log.d(TAG,""+cursor.getString(cursor.getInt(3)));
+                    //data.setNomorRumah(cursor.getString(cursor.getColumnIndex("name")));
+                    listData.add(data);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (cursor != null) cursor.close();
+        }
+
+        return listData;
     }
 }
