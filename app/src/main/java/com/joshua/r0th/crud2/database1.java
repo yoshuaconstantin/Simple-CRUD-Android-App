@@ -256,10 +256,10 @@ public class database1 extends SQLiteOpenHelper {
                 while (cursor.moveToNext()) {
                     adapterdata data = new adapterdata();
 
-                    Log.d(TAG,""+cursor.getString(cursor.getInt(0)));
-                    Log.d(TAG,""+cursor.getString(cursor.getInt(1)));
-                    Log.d(TAG,""+cursor.getString(cursor.getInt(2)));
-                    Log.d(TAG,""+cursor.getString(cursor.getInt(3)));
+
+                    Log.d(TAG,""+cursor.getString(cursor.getColumnIndex("NomorRumah")));
+                    Log.d(TAG,""+cursor.getString(cursor.getColumnIndex("JentikDalam")));
+                    Log.d(TAG,""+cursor.getString(cursor.getColumnIndex("JentikLuar")));
                     //data.setNomorRumah(cursor.getString(cursor.getColumnIndex("name")));
                     listData.add(data);
                 }
